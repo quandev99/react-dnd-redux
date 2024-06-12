@@ -1,0 +1,162 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* Ant degin */
+.ant-form-item{
+  margin-bottom: 0;
+}
+.app {
+  display: flex;
+}
+
+.sidebar {
+  width: 230px;
+  padding: 10px;
+  background-color: #f0f0f0;
+}
+
+.draggable-element {
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #ddd;
+  border: 1px solid #ccc;
+  cursor: move;
+}
+
+.draggable-element.dragging {
+  border: 5px solid pink;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.drop-area {
+  width: 500px;
+  height: 100vh;
+  padding: 20px;
+  margin-bottom: 50px;
+  background-color: #b7b4b4;
+  -ms-overflow-style: none; 
+  scrollbar-width: none;
+    overflow-x: hidden;
+}
+.drop-area::-webkit-scrollbar {
+    display: none;
+}
+
+.dragging-over {
+  width: 500px;
+  height: 100vh;
+  padding: 20px;
+  margin-bottom: 50px;
+  background-color: #b7b4b4;
+  scroll-snap-type:y mandatory;
+
+}
+
+.form-element {
+  cursor: move;
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border-radius: 4px;
+  background-color: #fafafa;
+  border: 1px dashed #ccc;
+  position: relative;
+}
+.form-element.selected {
+   border: 3px solid #1da1f2;
+}
+
+
+.preview-element {
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #e0e0e0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  opacity: 0.7;
+  position: relative;
+  transition: all 0.1s ease-in-out;
+}
+.draggable-element {
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #ddd;
+  border: 1px solid #ccc;
+  cursor: move;
+}
+
+.draggable-element.dragging {
+  border: 5px solid pink;
+}
+
+/* .drop-area {
+  width: 600px;
+  height: 100vh;
+  padding: 20px;
+  margin-bottom: 50px;
+  background-color: #b7b4b4;
+  overflow-x: hidden;
+} */
+
+.dragging-over {
+  background-color: #e2e2e2;
+}
+
+.form-element {
+  cursor: move;
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border-radius: 4px;
+  background-color: #fff;
+  border: 1px dashed #ccc;
+    position: relative;
+}
+.element-actions {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: #cac9c9;
+  opacity: 0.6;
+  border-radius: 3px;
+  z-index: 100;
+}
+
+.element-actions button {
+  width: 25px;
+  margin: 2px;
+}
+
+.placeholder {
+  background-color: #e0e0e0;
+  border: 2px dashed #ccc;
+  opacity: 0.5;
+}
+
+.element-attribute{
+  width: 450px;
+  height: 100vh;
+   /* -ms-overflow-style: none; 
+  scrollbar-width: none; */
+  overflow-y: scroll;
+
+}
+.element-attribute::-webkit-scrollbar{
+  display: none;
+}
+.element-attribute-scroll{
+  /* scroll-snap-type:y mandatory;
+   overflow-x: hidden; */
+}
+
+/* Action */

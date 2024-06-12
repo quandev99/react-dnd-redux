@@ -1,0 +1,161 @@
+{
+  "elements": [
+    { "id": 1, "type": "input", "label": "Input", "icon": "" },
+    { "id": 2, "type": "select", "label": "Select", "icon": "" },
+    { "id": 3, "type": "checkbox", "label": "Checkbox", "icon": "" },
+    { "id": 4, "type": "textarea", "label": "Textarea", "icon": "" },
+    { "id": 5, "type": "switch", "label": "Switch", "icon": "" }
+  ],
+  "attributes": [
+    {
+      "type": "input",
+      "properties": {
+        "placeholder": "Enter keyword",
+        "defaultValue": "",
+        "value": "",
+        "name": "input_name",
+        "labelWidth": "100px",
+        "width": "200px",
+        "height": "30px"
+      }
+    },
+    {
+      "type": "select",
+      "properties": {
+        "options": [
+          { "value": "option1", "label": "Option 1" },
+          { "value": "option2", "label": "Option 2" }
+        ],
+        "defaultValue": "",
+        "name": "select_name",
+        "labelWidth": "100px",
+        "width": "200px",
+        "height": "30px"
+      }
+    },
+    {
+      "type": "checkbox",
+      "properties": {
+        "label": "Check me",
+        "defaultValue": false,
+        "name": "checkbox_name",
+        "labelWidth": "100px",
+        "width": "200px",
+        "height": "30px"
+      }
+    },
+    {
+      "type": "textarea",
+      "properties": {
+        "placeholder": "Enter text",
+        "defaultValue": "",
+        "name": "textarea_name",
+        "labelWidth": "100px",
+        "width": "200px",
+        "height": "100px"
+      }
+    },
+    {
+      "type": "switch",
+      "properties": {
+        "defaultChecked": false,
+        "name": "switch_name",
+        "labelWidth": "100px",
+        "width": "60px",
+        "height": "30px"
+      }
+    }
+  ],
+  "input": [
+    {
+      "id": "Input1717466327475",
+      "type": "input",
+      "name": "Email",
+      "options": {
+        "variable": {
+          "id": "BakCT",
+          "name": "user",
+          "label": "",
+          "value": "nguyenvietquan",
+          "secret": false
+        },
+        "hideLabel": false,
+        "value": "abcd",
+        "placeholder": "",
+        "width": null,
+        "height": null,
+        "labelWidth": 100,
+        "maxLength": null,
+        "minLength": null,
+        "disabled": false,
+        "showCount": false,
+        "label": "user"
+      }
+    },
+    {
+      "id": "Select1717468168432",
+      "type": "select",
+      "name": "Select",
+      "options": {
+        "variable": { "id": null },
+        "hideLabel": false,
+        "value": [],
+        "options": [
+          { "label": "Javascript", "value": "Js", "isCheck": false },
+          { "label": "ReactJs", "value": "React", "isCheck": false }
+        ],
+        "isMultiple": true,
+        "placeholder": "Please select",
+        "width": null,
+        "height": null,
+        "labelWidth": 100
+      }
+    },
+    {
+      "id": "CheckBox1717467990425",
+      "type": "checkbox",
+      "name": "CheckBox",
+      "options": {
+        "variable": { "id": null },
+        "hideLabel": false,
+        "value": [],
+        "options": [{ "label": "label", "value": "value", "isCheck": false }],
+        "width": null,
+        "height": null,
+        "labelWidth": 100
+      }
+    },
+    {
+      "id": "TextArea1717468026191",
+      "type": "textarea",
+      "name": "TextArea",
+      "options": {
+        "variable": { "id": null },
+        "hideLabel": false,
+        "value": "",
+        "placeholder": "",
+        "width": null,
+        "height": null,
+        "labelWidth": 100,
+        "maxLength": null,
+        "minLength": null,
+        "disabled": false,
+        "showCount": false
+      }
+    },
+    {
+      "id": "Switch1717467991944",
+      "type": "switch",
+      "name": "Switch",
+      "options": {
+        "variable": { "id": null },
+        "hideLabel": true,
+        "value": true,
+        "width": null,
+        "height": null,
+        "labelWidth": 100,
+        "isLoading": false
+      }
+    }
+  ]
+}
