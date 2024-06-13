@@ -52,16 +52,14 @@ const DropArea = ({
   const [componentDisabled, setComponentDisabled] = useState(true);
   return (
     <div>
-      <Checkbox
+      {/* <Checkbox
         // className="hidden"
         checked={componentDisabled}
         onChange={(e) => setComponentDisabled(e.target.checked)}
       >
         Show Form
-      </Checkbox>
+      </Checkbox> */}
       <Form
-        // labelCol={{ span: 4 }}
-        // wrapperCol={{ span: 14 }}
         layout="horizontal"
         disabled={componentDisabled}
         style={{ maxWidth: 600 }}

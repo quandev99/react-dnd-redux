@@ -8,6 +8,7 @@ import ElementAttribute from "./components/ElementAttribute";
 import { ListDataElement } from "./data/element";
 import { useAppDispatch, useAppSelector } from "./app/hook";
 import { getElements, setElements } from "./slices/element";
+import { Button } from "antd";
 const App = () => {
 const dispatch = useAppDispatch()
 const {isOpen} = useAppSelector((state: any) => state.app);
@@ -239,22 +240,20 @@ const data = {
           {ListDataElement.elements.map((element) => (
             <SidebarItem key={element.id} element={element} />
           ))}
-          <button onClick={() => setPreviewOpen(true)}>Preview</button>
+          <Button type="primary" onClick={() => setPreviewOpen(true)}>Preview</Button >
         </div>
         <div className="content">
           <DropArea elements={elements} />
         </div>
         {isOpen && selectedElement && (
-          <ElementAttribute
-            variables={data.variables}
-          />
+          <ElementAttribute variables={data.variables} />
         )}
       </div>
-        <PreviewModal
-          isOpen={previewOpen}
-          onRequestClose={() => setPreviewOpen(!previewOpen)}
-          formElements={elements}
-        />
+      <PreviewModal
+        isOpen={previewOpen}
+        setPreviewOpen={() => setPreviewOpen(!previewOpen)}
+        elements={elements}
+      />
     </DndProvider>
   );
 };

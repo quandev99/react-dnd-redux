@@ -31,7 +31,6 @@ const ElementAttribute = ({ variables }) => {
         updatedOptions[keys[0]] = [...value];
       } else {
         console.log(2);
-
         updatedOptions[keys[0]] = {
           ...updatedOptions[keys[0]],
           [keys[1]]: value,
@@ -159,7 +158,7 @@ console.log("updateElement",selectedElement);
             style={{ width: "60%" }}
             min={0}
             max={100000}
-            value={selectedElement?.options?.labelWidth}
+            value={selectedElement?.options?.labelWidth || 0}
             onChange={(value) => handleAttributeChange("labelWidth", value)}
           />
         </div>
@@ -169,7 +168,7 @@ console.log("updateElement",selectedElement);
             style={{ width: "60%" }}
             min={0}
             max={100000}
-            value={selectedElement?.options?.width || 0}
+            value={selectedElement?.options?.width}
             onChange={(value) => handleAttributeChange("width", value)}
           />
         </div>
@@ -179,7 +178,7 @@ console.log("updateElement",selectedElement);
             style={{ width: "60%" }}
             min={0}
             max={100000}
-            value={selectedElement?.options?.height || 0}
+            value={selectedElement?.options?.height}
             onChange={(value) => handleAttributeChange("height", value)}
           />
         </div>
@@ -187,7 +186,7 @@ console.log("updateElement",selectedElement);
           <Typography.Title level={5}>Max Length</Typography.Title>
           <Input
             style={{ width: "100%" }}
-            value={selectedElement?.options?.maxLength || 0}
+            value={selectedElement?.options?.maxLength}
             onChange={(e) => handleAttributeChange("maxLength", e.target.value)}
             allowClear
           />
@@ -196,7 +195,7 @@ console.log("updateElement",selectedElement);
           <Typography.Title level={5}>Min Length</Typography.Title>
           <Input
             style={{ width: "100%" }}
-            value={selectedElement?.options?.minLength || 0}
+            value={selectedElement?.options?.minLength}
             onChange={(e) => handleAttributeChange("minLength", e.target.value)}
             allowClear
           />

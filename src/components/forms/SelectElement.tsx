@@ -7,7 +7,7 @@ const SelectElement = ( { id, name, type, options } ) => {
         mode={options?.isMultiple ? "multiple" : 'tags'}
         allowClear
         placeholder={
-          options?.isMultiple ? options?.placeholder : "Please select"
+          options?.placeholder || "Please select"
         }
         options={options?.options}
       ></Select>
