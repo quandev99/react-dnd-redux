@@ -7,8 +7,10 @@ import SidebarItem from "./components/SidebarItem";
 import ElementAttribute from "./components/ElementAttribute";
 import { ListDataElement } from "./data/element";
 import { useAppDispatch, useAppSelector } from "./app/hook";
-import { getElements, setElements } from "./slices/element";
+import { getElements, saveElement, setElements } from "./slices/element";
 import { Button } from "antd";
+import ExportJsonElement from "./components/ExportJsonElement";
+import ImportJsonElement from "./components/ImportJsonElement";
 const App = () => {
 const dispatch = useAppDispatch()
 const {isOpen} = useAppSelector((state: any) => state.app);
@@ -132,9 +134,10 @@ const data = {
     },
   ],
 };
-// useEffect(()=>{
-//   dispatch(getElements());
-// },[dispatch])
+useEffect(()=>{
+  dispatch(getElements());
+},[dispatch])
+
   // const initialData = 
   // [
   //   {
@@ -240,7 +243,16 @@ const data = {
           {ListDataElement.elements.map((element) => (
             <SidebarItem key={element.id} element={element} />
           ))}
-          <Button type="primary" onClick={() => setPreviewOpen(true)}>Preview</Button >
+          <div className="flex flex-wrap gap-2">
+            <Button type="primary" onClick={() => setPreviewOpen(true)}>
+              Preview
+            </Button>
+            <Button type="primary" onClick={() => dispatch(saveElement())}>
+              Save
+            </Button>
+            <ExportJsonElement />
+            <ImportJsonElement />
+          </div>
         </div>
         <div className="content">
           <DropArea elements={elements} />

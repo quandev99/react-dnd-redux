@@ -17,15 +17,15 @@ const elementSlice = createSlice({
   initialState,
   reducers: {
     getElements: (state) => {
-      // const localStorageData = JSON.parse(localStorage.getItem("Elements"));
-      // if (localStorageData && Array.isArray(localStorageData)) {
-      //   state.isLoading = false;
-      //   state.elements = localStorageData;
-      // } else {
-      //   state.elements = [];
-      //   state.isLoading = true;
-      // }
-      return state.elements;
+      const localStorageData = JSON.parse(localStorage.getItem("Elements") as string);
+      if (localStorageData && Array.isArray(localStorageData)) {
+        state.isLoading = false;
+        state.elements = localStorageData;
+      } else {
+        state.elements = [];
+        state.isLoading = true;
+      }
+      state.elements;
     },
     getElementById: (state, action) => {
       const id = action.payload;
@@ -88,18 +88,18 @@ const elementSlice = createSlice({
         }
       }
     },
-    // updateElement: (state, action) => {
-    //   const { id, updatedAttributes } = action.payload;
-    //   const element = state.elements.find((el) => el.id === id);
-    //   if (element) {
-    //     Object.assign(element, updatedAttributes);
-    //     // saveToLocalStorage(state.elements);
-    //   }
-    // },
+    saveElement: (state) => {
+      saveToLocalStorage(state.elements);
+    },
+    importElements(state, action) {
+      const { elements } = action.payload
+      state.elements = elements; 
+      saveToLocalStorage(elements);
+    }
   },
 });
 
-export const { getElements, addElement, moveElementSlice, deleteElement, copyElement, setElements, getElementById, updateElement } = elementSlice.actions;
+export const { getElements, addElement, moveElementSlice, deleteElement, copyElement, setElements, getElementById, updateElement, saveElement, importElements } = elementSlice.actions;
 export const elementReducer = elementSlice.reducer;
 
   

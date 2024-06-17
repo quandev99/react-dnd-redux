@@ -1,9 +1,9 @@
 
 
-import React from "react";
 import { Button, Modal } from "antd";
+import React from "react";
+import iconPreview from "../assets/pluginIcon.svg";
 import ElementMap from "./forms";
-import iconPreview from "../assets/pluginIcon.svg"
 
 const PreviewModal: React.FC = ({ isOpen, setPreviewOpen, elements }) => {
   return (
@@ -30,7 +30,7 @@ const PreviewModal: React.FC = ({ isOpen, setPreviewOpen, elements }) => {
       width={900}
     >
       <div className="mx-[200px]">
-        {elements.map((element, index) => {
+        {elements?.map((element, index) => {
           const ElementComponent = ElementMap[element?.type];
           return ElementComponent ? (
             <div key={index} className="form-element">

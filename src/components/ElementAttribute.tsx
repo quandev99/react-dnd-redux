@@ -11,6 +11,7 @@ const ElementAttribute = ({ variables }) => {
   );
 
  const handleAttributeChange = (key, value) => {
+  console.log("handleAttributeChange", key, value);
    const updatedOptions = { ...selectedElement.options };
    const updatedAttributes = { ...selectedElement };
   if (key === "name") {
@@ -27,10 +28,8 @@ const ElementAttribute = ({ variables }) => {
     const keys = key.split(".");
     if (keys.length === 2) {
       if (Array.isArray(updatedOptions[keys[0]])) {
-        console.log(1);
         updatedOptions[keys[0]] = [...value];
       } else {
-        console.log(2);
         updatedOptions[keys[0]] = {
           ...updatedOptions[keys[0]],
           [keys[1]]: value,

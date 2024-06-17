@@ -8,6 +8,7 @@ export default function RenderElement({ attribute, onChange }) {
     onChange(name, type === "checkbox" ? checked : value);
   };
 const handleOptionsChange = (options) => {
+  console.log("options", options);
   onChange("options.options", options);
 };
   switch (elementType) {
@@ -15,7 +16,7 @@ const handleOptionsChange = (options) => {
     case "select":
       return (
         <DynamicFormItem
-          valueOptions={attribute.options.options}
+          valueOptions={attribute}
           onOptionsChange={handleOptionsChange}
         ></DynamicFormItem>
       );
