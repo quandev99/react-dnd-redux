@@ -3,7 +3,7 @@ import { elementReducer } from "../slices/element";
 import { appReducer } from "../slices/appSlice";
 const store = configureStore({
   reducer: {
-    elements: elementReducer,
+    logins: elementReducer,
     app: appReducer,
   },
 });

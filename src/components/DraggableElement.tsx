@@ -11,8 +11,8 @@ const DraggableElement = ({
   index,
 }) => {
   const dispatch = useAppDispatch();
-  const {  selectedElement } = useAppSelector(
-    (state: any) => state.elements
+  const { selectedElement } = useAppSelector(
+    (state: any) => state.logins
   );
   const ref = useRef(null);
   const [, drag] = useDrag({
@@ -73,7 +73,7 @@ const DraggableElement = ({
       onClick={(event) => handleSelect(event)}
     >
       {ElementComponent ? <ElementComponent {...element} /> : null}
-      {selectedElement === element && (
+      {selectedElement?.id === element?.id && (
         <div className="element-actions">
           <button onClick={(event) => handleCopy(event)}>
             <CopyOutlined />

@@ -14,8 +14,8 @@ const ImportJsonElement = () => {
         if (e.target?.result) {
           console.log("file content", e.target.result);
           try {
-            const jsonData = JSON.parse(e.target.result as string);
-            dispatch(importElements({ elements: jsonData.elements }));
+            const jsonData = JSON.parse(e.target.result as string) || null;
+            dispatch(importElements({ logins: jsonData }));
           } catch (error) {
             console.error("Invalid JSON file", error);
           }

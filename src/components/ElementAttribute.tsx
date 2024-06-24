@@ -4,31 +4,45 @@ import { useAppSelector, useAppDispatch } from "../app/hook";
 import RenderElement from "./attribute/RenderElementWithType";
 const { Option } = Select;
 
-const ElementAttribute = ({ variables }) => {
+const ElementAttribute = () => {
   const dispatch = useAppDispatch();
-  const { elements, selectedElement } = useAppSelector(
-    (state) => state.elements
+  const { login, selectedElement } = useAppSelector(
+    (state) => state.logins
   );
-
+  console.log("login", login);
+  console.log("selectedElement", selectedElement);
+  const variables = login?.script?.variables || [];
  const handleAttributeChange = (key, value) => {
-  console.log("handleAttributeChange", key, value);
    const updatedOptions = { ...selectedElement.options };
    const updatedAttributes = { ...selectedElement };
   if (key === "name") {
+    console.log("name", value);
     updatedAttributes.name = value;
+  } else if (key === "isMultiple") {
+    console.log("isMultiple", value);
+    updatedOptions.isMultiple = value;
+    updatedOptions.value = "";
   } else if (key === "options.variable") {
     const selectedVariable = variables.find(
       (variable) => variable.id === value
     );
-      const exitVariable = elements?.find((item) => item.options.variable.id === value)
-      if (selectedVariable && !exitVariable) {
-        updatedOptions.variable = selectedVariable;
-      }
+    const exitVariable = login?.elements?.find(
+      (item) => item?.options?.variable?.id === value
+    );
+    if (selectedVariable && !exitVariable) {
+      updatedOptions.variable = selectedVariable;
+    } else {
+      alert("Variable is already used");
+    }
   } else {
     const keys = key.split(".");
     if (keys.length === 2) {
       if (Array.isArray(updatedOptions[keys[0]])) {
+        const getCheckedLabels = (items) => {
+          return items.filter((item) => item.isCheck).map((item) => item.value);
+        };
         updatedOptions[keys[0]] = [...value];
+        updatedOptions.value = getCheckedLabels(value) || null;
       } else {
         updatedOptions[keys[0]] = {
           ...updatedOptions[keys[0]],
@@ -38,11 +52,10 @@ const ElementAttribute = ({ variables }) => {
     } else {
       updatedOptions[keys[0]] = value;
     }
-    }
+  }
   updatedAttributes.options = updatedOptions;
    dispatch(updateElement({ id: selectedElement.id, updatedAttributes }));
  };
-console.log("updateElement",selectedElement);
   return (
     <div className="element-attribute bg-[#eee] p-4 overflow-y-hidden">
       <div className="element-attribute-scroll">

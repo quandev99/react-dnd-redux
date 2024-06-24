@@ -4,10 +4,8 @@ import DraggableElement from "./DraggableElement";
 import { Checkbox, Form } from "antd";
 import createElementWithTpe from "../utils/createElementWithType";
 import { useAppDispatch } from "../app/hook";
-import { addElement, setElements } from "../slices/element";
-const DropArea = ({
-  elements,
-}) => {
+import { addElementToLogin, setElements } from "../slices/element";
+const DropArea = ({ login }) => {
   const [hoverIndex, setHoverIndex] = useState(null);
   const dispatch = useAppDispatch();
   const dropRef = useRef(null);
@@ -19,8 +17,8 @@ const DropArea = ({
       const hoverBoundingRect = dropRef.current?.getBoundingClientRect();
       const hoverClientY = monitor.getClientOffset().y - hoverBoundingRect.top;
 
-      let newHoverIndex = elements?.length; 
-      for (let i = 0; i < elements?.length; i++) {
+      let newHoverIndex = login?.elements?.length;
+      for (let i = 0; i < login?.elements?.length; i++) {
         const { top, bottom } =
           dropRef.current.children[i].getBoundingClientRect();
         if (hoverClientY < (top + bottom) / 2) {
@@ -28,17 +26,18 @@ const DropArea = ({
           break;
         }
       }
-
       setHoverIndex(newHoverIndex);
     },
     drop: (item, monitor) => {
-      const newElements = [...elements];
       if (item.type === "NEW_ELEMENT") {
         const newElement = createElementWithTpe(item?.element);
-        dispatch(addElement(newElement));
-        newElements.splice(hoverIndex, 0, newElement);
+        dispatch(
+          addElementToLogin({
+            newElement,
+            position: hoverIndex,
+          })
+        );
       }
-      dispatch(setElements(newElements))
       setHoverIndex(null);
     },
     collect: (monitor) => ({
@@ -51,7 +50,7 @@ const DropArea = ({
 
   const [componentDisabled, setComponentDisabled] = useState(true);
   return (
-    <div>
+    <div>    
       {/* <Checkbox
         // className="hidden"
         checked={componentDisabled}
@@ -68,12 +67,8 @@ const DropArea = ({
           ref={dropRef}
           className={`drop-area ${isOver ? "dragging-over" : ""}`}
         >
-          {elements?.map((element, index) => (
-            <DraggableElement
-              key={index}
-              index={index}
-              element={element}
-            />
+          {login?.elements?.map((element, index) => (
+            <DraggableElement key={index} index={index} element={element} />
           ))}
           {isOver && hoverIndex !== null && (
             <div className="preview-element" style={{ order: hoverIndex }}>

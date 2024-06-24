@@ -1,6 +1,7 @@
 import React, { useCallback } from "react";
 import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input, Space } from "antd";
+import { v4 as uuidv4 } from "uuid";
 const DynamicFormItem = ({ valueOptions, onOptionsChange }) => {
 
   const valueOptionsData = valueOptions.options.options;
@@ -85,6 +86,7 @@ const DynamicFormItem = ({ valueOptions, onOptionsChange }) => {
                 style={{ display: "flex", marginBottom: 8 }}
                 align="baseline"
               >
+                {key}
                 <Checkbox
                   onChange={handleCheckboxChange(index)}
                   checked={valueOptionsData[index]?.isCheck || false}
@@ -107,8 +109,8 @@ const DynamicFormItem = ({ valueOptions, onOptionsChange }) => {
                     className=" bg-gray-100 px-2"
                     onClick={() => {
                       add({
-                        label: "label",
-                        value: "value",
+                        label: "label" + key,
+                        value: "value" + key,
                         isCheck: false,
                       });
                       setOptionCount(optionCount + 1);

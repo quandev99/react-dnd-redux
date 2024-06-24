@@ -1,118 +1,146 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import { getElements } from "../actions/element";
 
 const initialState = {
-  elements: [],
+  logins: [],
+  login: {},
   selectedElement: {},
   isLoading: false,
   error: "",
-} as { elements: unknown[]; selectedElement: object; isLoading: boolean; error: string };
-
-const saveToLocalStorage = (elements) => {
-  localStorage.setItem("Elements", JSON.stringify(elements));
+} as { logins: unknown[]; login: unknown; selectedElement: unknown; isLoading: boolean; error: string };
+const findElementById = (logins, id) => {
+  for (const login of logins) {
+    const element = login.elements.find(element => element.id === id);
+    if (element) {
+      return element;
+    }
+  }
+  return null;
+};
+const saveToLocalStorage = (logins) => {
+  localStorage.setItem("Logins", JSON.stringify(logins));
 };
 
 const elementSlice = createSlice({
-  name: "element",
+  name: "login",
   initialState,
   reducers: {
     getElements: (state) => {
-      const localStorageData = JSON.parse(localStorage.getItem("Elements") as string);
+      const localStorageData = JSON.parse(localStorage.getItem("Logins") as string);
       if (localStorageData && Array.isArray(localStorageData)) {
         state.isLoading = false;
-        state.elements = localStorageData;
+        state.logins = localStorageData;
       } else {
-        state.elements = [];
+        state.logins = [];
         state.isLoading = true;
       }
-      state.elements;
+      state.logins;
+    },
+    getLoginById: (state, action) => {
+      const id = action.payload;
+      state.login = state.logins.find((login) => login.id === id);
     },
     getElementById: (state, action) => {
       const id = action.payload;
-      state.selectedElement = state.elements.find((element) => element.id === id);
+      const element = findElementById(state.logins, id);
+      if (element) {
+        state.selectedElement = element;
+      } else {
+        state.selectedElement = {};
+      }
     },
-    addElement: (state, action) => {
-      const newElements = [...state.elements, action.payload];
-      // saveToLocalStorage(newElements);
-      return {
-        ...state,
-        elements: newElements,
-      };
+    addElementToLogin: (state, action) => {
+      const { newElement, position } = action.payload;
+      state.login.elements.splice(position, 0, newElement);
+      // Optionally update the logins array if needed
+      const loginIndex = state.logins.findIndex((login) => login?.id === state.login?.id);
+      console.log("loginIndex", loginIndex);
+      if (loginIndex !== -1) {
+        state.logins[loginIndex] = state.login;
+      }
     },
     moveElementSlice: (state, action) => {
       const { dragIndex, hoverIndex } = action.payload;
-      const updatedElements = [...state.elements];
+      const updatedElements = [...state.login.elements];
       const [movedElement] = updatedElements.splice(dragIndex, 1);
       updatedElements.splice(hoverIndex, 0, movedElement);
-      // saveToLocalStorage(updatedElements);
-      state.elements = updatedElements;
+      state.login.elements = updatedElements;
+      // Optionally update the logins array if needed
+      const loginIndex = state.logins.findIndex((login) => login.id === state.login.id);
+      if (loginIndex !== -1) {
+        state.logins[loginIndex] = state.login;
+        saveToLocalStorage(state.logins);
+      }
     },
     deleteElement: (state, action) => {
       const id = action.payload;
-      const newElements = state.elements.filter((item) => item.id !== id);
-      // saveToLocalStorage(newElements);
-      state.elements = newElements;
-      return state;
+      const newElements = state.login.elements.filter((item) => item.id !== id);
+      state.login.elements = newElements;
+      // Optionally update the logins array if needed
+      const loginIndex = state.logins.findIndex((login) => login.id === state.login.id);
+      if (loginIndex !== -1) {
+        state.logins[loginIndex] = state.login;
+        // saveToLocalStorage(state.logins);
+      }
     },
     copyElement: (state, action) => {
       const { newElement, index } = action.payload;
-      const elements = [...state.elements];
+      const elements = [...state.login.elements];
       if (newElement) {
         elements.splice(index + 1, 0, newElement);
-        // saveToLocalStorage(elements);
-        return {
-          ...state,
-          elements,
-        };
+        state.login.elements = elements;
+        // Optionally update the logins array if needed
+        const loginIndex = state.logins.findIndex((login) => login.id === state.login.id);
+        if (loginIndex !== -1) {
+          state.logins[loginIndex] = state.login;
+        }
       }
-      return state;
     },
     setElements: (state, action) => {
-      state.elements = action.payload;
-      // saveToLocalStorage(action.payload);
+      state.login.elements = action.payload;
+      // Optionally update the logins array if needed
+      const loginIndex = state.logins.findIndex((login) => login.id === state.login.id);
+      if (loginIndex !== -1) {
+        state.logins[loginIndex] = state.login;
+      }
     },
     updateElement: (state, action) => {
       const { id, updatedAttributes } = action.payload;
-      const index = state.elements.findIndex((element) => element.id === id);
+      const index = state.login.elements.findIndex((element) => element.id === id);
+      
       if (index !== -1) {
-        state.elements[index] = {
-          ...state.elements[index],
+        state.login.elements[index] = {
+          ...state.login.elements[index],
           ...updatedAttributes,
         };
-        // Update selectedElement if it's the one being updated
-        if (state.selectedElement.id === id) {
-          state.selectedElement = {
-            ...state.selectedElement,
-            ...updatedAttributes,
-          };
+        // Optionally update the logins array if needed
+        const loginIndex = state.logins.findIndex((login) => login.id === state.login.id);
+        if (loginIndex !== -1) {
+          state.logins[loginIndex] = state.login;
+          const element = findElementById(state.logins, id);
+          if (element) {
+            state.selectedElement = element;
+          } else {
+            state.selectedElement = {};
+          }
+          // saveToLocalStorage(state.logins);
         }
       }
     },
     saveElement: (state) => {
-      saveToLocalStorage(state.elements);
+      saveToLocalStorage(state.logins);
     },
     importElements(state, action) {
-      const { elements } = action.payload
-      state.elements = elements; 
-      saveToLocalStorage(elements);
+      const { logins } = action.payload
+      state.logins = logins || null; 
+      saveToLocalStorage(logins);
+    },
+    deleteAllElements(state) {
+      state.login = {};
+      // saveToLocalStorage([]);
     }
   },
 });
 
-export const { getElements, addElement, moveElementSlice, deleteElement, copyElement, setElements, getElementById, updateElement, saveElement, importElements } = elementSlice.actions;
+export const { getElements, addElementToLogin, moveElementSlice, deleteElement, copyElement, setElements, getElementById, updateElement, saveElement, importElements, deleteAllElements, getLoginById } = elementSlice.actions;
 export const elementReducer = elementSlice.reducer;
 
-  
-  // extraReducers: (builder)=>{
-  //   builder.addCase(getElements.pending,(state)=> {
-  //     state.isLoading = true;
-  //   }),
-  //   builder.addCase(getElements.fulfilled,(state,action)=> {
-  //     state.isLoading = false;
-  //     state.elements = action.payload;
-  //   }),
-  //   builder.addCase(getElements.rejected,(state,action)=> {
-  //     state.isLoading = false;
-  //     state.error = action.payload;
-  //   })
-  // },
